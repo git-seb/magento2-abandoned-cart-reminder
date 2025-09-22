@@ -5,7 +5,11 @@
 "var store_email":"Store Email",
 "var cart_url":"Cart Url",
 "var items_count":"Number of Items in Cart",
-"var cart_id":"Cart Id"
+"var cart_id":"Cart Id",
+"var discount_code":"Generated Discount Code",
+"var discount_percentage":"Discount Percentage",
+"var discount_expiration":"Discount Code Expiration Date",
+"var has_discount":"Whether Discount Code is Available"
 } @-->
 
 {{template config_path="design/email/header_template"}}
@@ -22,6 +26,24 @@
             </p>
         </td>
     </tr>
+    {{if has_discount}}
+    <tr class="email-discount">
+        <td style="background-color: #f8f8f8; padding: 20px; border: 2px dashed #007cba; margin: 15px 0;">
+            <h2 style="color: #007cba; text-align: center; margin-top: 0;">
+                {{trans "Special Offer Just For You!"}}
+            </h2>
+            <p style="text-align: center; font-size: 16px; margin: 10px 0;">
+                {{trans "Complete your purchase and save %discount_percentage% with code:" discount_percentage=$discount_percentage |raw}}
+            </p>
+            <p style="text-align: center; font-size: 24px; font-weight: bold; color: #007cba; background-color: #ffffff; padding: 10px; border: 1px solid #007cba; letter-spacing: 2px;">
+                {{var discount_code}}
+            </p>
+            <p style="text-align: center; font-size: 14px; color: #666;">
+                {{trans "Expires: %discount_expiration" discount_expiration=$discount_expiration |raw}}
+            </p>
+        </td>
+    </tr>
+    {{/if}}
     <tr class="email-summary">
         <td>
             <h1>

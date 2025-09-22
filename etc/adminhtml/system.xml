@@ -29,6 +29,40 @@
                     <comment><![CDATA[]]>Select email template. You may edit default template in menu item <strong>CONTENT -> Templates</strong> and choose it here.</comment>
                 </field>
             </group>
+            <group id="discount_code" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Discount Code Settings</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Discount Code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable automatic discount code generation for abandoned cart emails.]]></comment>
+                </field>
+                <field id="percentage" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discount Percentage</label>
+                    <frontend_class>validate-number validate-number-range number-range-0-100</frontend_class>
+                    <frontend_model>Adeelq\AbandonedCartReminder\Block\Adminhtml\Form\Field\DiscountSlider</frontend_model>
+                    <comment><![CDATA[Discount percentage for the generated coupon code (0-100%).]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="expiration_time" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Code Expiration (Hours)</label>
+                    <frontend_class>validate-number validate-greater-than-zero</frontend_class>
+                    <comment><![CDATA[Number of hours until the discount code expires (e.g., 24 for 1 day, 168 for 1 week).]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="prefix" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Code Prefix</label>
+                    <frontend_class>validate-code validate-length maximum-length-10</frontend_class>
+                    <comment><![CDATA[Prefix for generated discount codes (max 10 characters, alphanumeric).]]></comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
         </section>
     </system>
 </config>

@@ -14,6 +14,7 @@
         "adeelq/magento2-core-module": ">=1.0",
         "magento/framework": ">=101 <104",
         "magento/module-sales": ">=100 <104",
+        "magento/module-sales-rule": ">=100 <104",
         "magento/module-store": ">=100 <102",
         "magento/module-config": ">=100 <103",
         "magento/module-customer": ">=100 <104",
