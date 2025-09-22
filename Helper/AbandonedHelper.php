@@ -15,6 +15,7 @@ use Magento\Quote\Model\ResourceModel\Quote\Collection;
 use Magento\Store\Api\Data\StoreInterface;
 use Adeelq\AbandonedCartReminder\Model\ResourceModel\AbandonedResource;
 use Adeelq\AbandonedCartReminder\Model\AbandonedModelFactory;
+use Adeelq\AbandonedCartReminder\Helper\DiscountHelper;
 use Throwable;
 
 class AbandonedHelper extends Base
@@ -40,23 +41,31 @@ class AbandonedHelper extends Base
     private AbandonedModelFactory $abandonedModelFactory;
 
     /**
+     * @var DiscountHelper
+     */
+    private DiscountHelper $discountHelper;
+
+    /**
      * @param Logger $logger
      * @param TransportBuilder $transportBuilder
      * @param StateInterface $state
      * @param AbandonedResource $abandonedResource
      * @param AbandonedModelFactory $abandonedModelFactory
+     * @param DiscountHelper $discountHelper
      */
     public function __construct(
         Logger $logger,
         TransportBuilder $transportBuilder,
         StateInterface $state,
         AbandonedResource $abandonedResource,
-        AbandonedModelFactory $abandonedModelFactory
+        AbandonedModelFactory $abandonedModelFactory,
+        DiscountHelper $discountHelper
     ) {
         $this->transportBuilder = $transportBuilder;
         $this->inlineTranslation = $state;
         $this->abandonedModelFactory = $abandonedModelFactory;
         $this->abandonedResource = $abandonedResource;
+        $this->discountHelper = $discountHelper;
         parent::__construct($logger);
     }
 
@@ -103,6 +112,23 @@ class AbandonedHelper extends Base
      */
     private function sendEmail(Quote $cart, StoreInterface $store, $supportEmail, $supportEmailName): void
     {
+        // Generate discount code if enabled
+        $discountCode = null;
+        $discountPercentage = 0;
+        $discountExpiration = null;
+        
+        try {
+            if ($this->discountHelper->isDiscountEnabled($store)) {
+                $discountCode = $this->discountHelper->generateDiscountCode($cart, $store);
+                $discountPercentage = $this->discountHelper->getDiscountPercentage($store);
+                $expirationHours = $this->discountHelper->getExpirationHours($store);
+                $discountExpiration = date('M j, Y g:i A', strtotime('+' . $expirationHours . ' hours'));
+            }
+        } catch (\Exception $e) {
+            $this->logError(__METHOD__, $e);
+            // Continue without discount code if generation fails
+        }
+
         $this->inlineTranslation->suspend();
         $transport = $this->transportBuilder
             ->setTemplateIdentifier(
@@ -120,7 +146,11 @@ class AbandonedHelper extends Base
                     'store_email' => $supportEmail,
                     'cart_url' => $store->getUrl('checkout/cart'),
                     'items_count' => $cart->getItemsCount(),
-                    'cart_id' => $cart->getId()
+                    'cart_id' => $cart->getId(),
+                    'discount_code' => $discountCode,
+                    'discount_percentage' => $discountPercentage,
+                    'discount_expiration' => $discountExpiration,
+                    'has_discount' => !empty($discountCode)
                 ]
             )
             ->setFromByScope(
