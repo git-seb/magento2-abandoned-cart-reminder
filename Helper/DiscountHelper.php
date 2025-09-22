@@ -85,6 +85,11 @@ class DiscountHelper extends AbstractHelper
             $expirationHours = (int) $store->getConfig('adeelq_abandoned_configuration/discount_code/expiration_time') ?: 24;
             $prefix = $store->getConfig('adeelq_abandoned_configuration/discount_code/prefix') ?: 'CART';
 
+            // Validate input values
+            $percentage = max(0, min(100, $percentage)); // Ensure 0-100 range
+            $expirationHours = max(1, min(8760, $expirationHours)); // Max 1 year
+            $prefix = preg_replace('/[^A-Z0-9]/', '', strtoupper(substr($prefix, 0, 10))); // Sanitize prefix
+
             // Create sales rule
             $rule = $this->ruleFactory->create();
             $rule->setName('Abandoned Cart Discount - Cart #' . $cart->getId())
@@ -153,8 +158,11 @@ class DiscountHelper extends AbstractHelper
     private function generateUniqueCouponCode(string $prefix, int $cartId): string
     {
         $timestamp = substr(time(), -6);
-        $randomString = strtoupper(substr(md5(uniqid()), 0, 4));
-        return $prefix . $cartId . $timestamp . $randomString;
+        $randomString = strtoupper(substr(md5(uniqid(mt_rand(), true)), 0, 4));
+        $code = $prefix . $cartId . $timestamp . $randomString;
+        
+        // Ensure code is not longer than 255 characters (Magento limit)
+        return substr($code, 0, 255);
     }
 
     /**

@@ -33,14 +33,16 @@
                 {{trans "Special Offer Just For You!"}}
             </h2>
             <p style="text-align: center; font-size: 16px; margin: 10px 0;">
-                {{trans "Complete your purchase and save %discount_percentage% with code:" discount_percentage=$discount_percentage |raw}}
+                {{trans "Complete your purchase and save %discount_percentage% with code:" discount_percentage=$discount_percentage|raw}}
             </p>
             <p style="text-align: center; font-size: 24px; font-weight: bold; color: #007cba; background-color: #ffffff; padding: 10px; border: 1px solid #007cba; letter-spacing: 2px;">
-                {{var discount_code}}
+                {{var discount_code|raw}}
             </p>
+            {{if discount_expiration}}
             <p style="text-align: center; font-size: 14px; color: #666;">
-                {{trans "Expires: %discount_expiration" discount_expiration=$discount_expiration |raw}}
+                {{trans "Expires: %discount_expiration" discount_expiration=$discount_expiration|raw}}
             </p>
+            {{/if}}
         </td>
     </tr>
     {{/if}}
