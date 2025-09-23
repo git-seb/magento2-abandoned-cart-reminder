@@ -5,8 +5,15 @@
             <abandoned_cart>
                 <duration>60</duration>
                 <consented>1</consented>
+                <email_sender>support</email_sender>
                 <template>adeelq_abandoned_configuration_abandoned_cart_template</template>
             </abandoned_cart>
+            <discount_code>
+                <enabled>0</enabled>
+                <percentage>10</percentage>
+                <expiration_time>24</expiration_time>
+                <prefix>CART</prefix>
+            </discount_code>
         </adeelq_abandoned_configuration>
     </default>
 </config>

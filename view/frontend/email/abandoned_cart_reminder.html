@@ -26,7 +26,7 @@
             </p>
         </td>
     </tr>
-    {{if has_discount}}
+    {{if $has_discount}}
     <tr class="email-discount">
         <td style="background-color: #f8f8f8; padding: 20px; border: 2px dashed #007cba; margin: 15px 0;">
             <h2 style="color: #007cba; text-align: center; margin-top: 0;">
@@ -38,7 +38,7 @@
             <p style="text-align: center; font-size: 24px; font-weight: bold; color: #007cba; background-color: #ffffff; padding: 10px; border: 1px solid #007cba; letter-spacing: 2px;">
                 {{var discount_code|raw}}
             </p>
-            {{if discount_expiration}}
+            {{if $discount_expiration}}
             <p style="text-align: center; font-size: 14px; color: #666;">
                 {{trans "Expires: %discount_expiration" discount_expiration=$discount_expiration|raw}}
             </p>

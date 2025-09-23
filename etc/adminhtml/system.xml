@@ -23,6 +23,11 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <comment><![CDATA[Select <strong>No</strong> to send reminder to all emails irrelevant to consent. <strong>Yes</strong> option checks if shopping cart email has Subscribed consent in Newsletter Subscriber.]]></comment>
                 </field>
+                <field id="email_sender" translate="label" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Adeelq\AbandonedCartReminder\Model\Adminhtml\Config\Source\System\EmailSender</source_model>
+                    <comment><![CDATA[Select which store email sender to use for abandoned cart reminder emails.]]></comment>
+                </field>
                 <field id="template" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Email Template</label>
                     <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
