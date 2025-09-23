@@ -136,7 +136,7 @@ class DiscountHelper extends AbstractHelper
                 ->setTimesUsed(0)
                 ->setExpirationDate(date('Y-m-d H:i:s', strtotime('+' . $expirationHours . ' hours')))
                 ->setCreatedAt(date('Y-m-d H:i:s'))
-                ->setType(\Magento\SalesRule\Helper\Coupon::COUPON_TYPE_SPECIFIC);
+                ->setType(\Magento\SalesRule\Model\Rule::COUPON_TYPE_SPECIFIC);
 
             $coupon->save();
 
