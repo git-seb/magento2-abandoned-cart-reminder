@@ -5,13 +5,13 @@
             <resource id="Magento_Backend::admin">
                 <resource id="Magento_Reports::report">
                     <resource id="Adeelq_CoreModule::Reports">
-                        <resource id="Adeelq_AbandonedCartReminder::AbandonedCartReminder" title="Abandoned Cart Reminder: Email Logs" />
+                        <resource id="Adeelq_AbandonedCartReminder::AbandonedCartReminder" title="Abandoned Cart Reminder: Email Logs" translate="title" sortOrder="100" />
                     </resource>
                 </resource>
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Adeelq_AbandonedCartReminder::Config" title="Abandoned Cart Reminder: Configuration"/>
+                            <resource id="Adeelq_AbandonedCartReminder::Config" title="Abandoned Cart Reminder: Configuration" translate="title" sortOrder="100" />
                         </resource>
                     </resource>
                 </resource>
