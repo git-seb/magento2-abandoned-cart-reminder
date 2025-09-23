@@ -54,8 +54,9 @@ class CronProcessor
         try {
             foreach ($this->storeManager->getStores() as $store) {
                 $cartAbandonmentPeriod = $store->getConfig('adeelq_abandoned_configuration/abandoned_cart/duration');
-                $supportEmail = $store->getConfig('trans_email/ident_support/email');
-                $supportEmailName = $store->getConfig('trans_email/ident_support/name');
+                $emailSender = $store->getConfig('adeelq_abandoned_configuration/abandoned_cart/email_sender') ?: 'support';
+                $supportEmail = $store->getConfig('trans_email/ident_' . $emailSender . '/email');
+                $supportEmailName = $store->getConfig('trans_email/ident_' . $emailSender . '/name');
                 if (empty($cartAbandonmentPeriod) || empty($supportEmail) || empty($supportEmailName)) {
                     return;
                 }
