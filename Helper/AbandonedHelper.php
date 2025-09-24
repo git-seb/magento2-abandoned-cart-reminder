@@ -129,6 +129,11 @@ class AbandonedHelper extends Base
             // Continue without discount code if generation fails
         }
 
+        // Ensure discount_expiration is never null to prevent template engine errors
+        if ($discountExpiration === null) {
+            $discountExpiration = '';
+        }
+
         $storeGroupName = $store->getGroup()->getName();
 
         $this->inlineTranslation->suspend();
