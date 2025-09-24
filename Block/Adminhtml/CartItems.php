@@ -82,21 +82,29 @@ class CartItems extends AbstractItems
             return '';
         }
 
-        // Get the price including tax based on store configuration
-        $priceIncludesTax = $this->taxHelper->priceIncludesTax($cart->getStore());
-        $displayPriceInclTax = $this->taxHelper->displayPriceIncludingTax();
+        try {
+            // Get the price including tax based on store configuration
+            $priceIncludesTax = $this->taxHelper->priceIncludesTax($cart->getStore());
+            $displayPriceInclTax = $this->taxHelper->displayPriceIncludingTax();
 
-        if ($displayPriceInclTax || $priceIncludesTax) {
-            // Use row total including tax
-            $price = $item->getRowTotalInclTax() ?: $item->getRowTotal();
-        } else {
-            // Use row total excluding tax
-            $price = $item->getRowTotal();
+            if ($displayPriceInclTax || $priceIncludesTax) {
+                // Use row total including tax
+                $price = $item->getRowTotalInclTax() ?: $item->getRowTotal();
+            } else {
+                // Use row total excluding tax
+                $price = $item->getRowTotal();
+            }
+
+            return $this->currencyFactory
+                ->create()
+                ->load($cart->getCurrency()->getQuoteCurrencyCode())
+                ->formatPrecision($price, 2);
+        } catch (Throwable $e) {
+            // Fallback to basic row total if tax calculation fails
+            return $this->currencyFactory
+                ->create()
+                ->load($cart->getCurrency()->getQuoteCurrencyCode())
+                ->formatPrecision($item->getRowTotal(), 2);
         }
-
-        return $this->currencyFactory
-            ->create()
-            ->load($cart->getCurrency()->getQuoteCurrencyCode())
-            ->formatPrecision($price, 2);
     }
 }
