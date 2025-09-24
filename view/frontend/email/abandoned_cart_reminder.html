@@ -6,9 +6,10 @@
 "var cart_url":"Cart Url",
 "var items_count":"Number of Items in Cart",
 "var cart_id":"Cart Id",
+"var customer_first_name":"Customer First Name",
 "var discount_code":"Generated Discount Code",
 "var discount_percentage":"Discount Percentage",
-"var discount_expiration":"Discount Code Expiration Date",
+"var discount_expiration":"Discount Code Expiration Date",  
 "var has_discount":"Whether Discount Code is Available",
 "var has_expiration":"Whether Discount Code has Expiration Date"
 } @-->
@@ -19,7 +20,7 @@
     <tr class="email-intro">
         <td>
             <p class="greeting">
-                {{trans "Dear Valued Customer"}}
+                {{trans "Hi %customer_first_name" customer_first_name=$customer_first_name}}
             </p>
             <p style="font-size: 16px; line-height: 1.5; margin-bottom: 15px;">
                 {{trans "Thank you for visiting %store_name! We noticed you left some fantastic items in your cart." store_name=$store_name |raw}}

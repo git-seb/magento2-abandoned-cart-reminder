@@ -130,6 +130,9 @@ class AbandonedHelper extends Base
         }
 
         $storeGroupName = $store->getGroup()->getName();
+        
+        // Get customer first name from quote
+        $customerFirstName = $cart->getCustomerFirstname() ?: 'Valued Customer';
 
         $this->inlineTranslation->suspend();
         $transport = $this->transportBuilder
@@ -149,6 +152,7 @@ class AbandonedHelper extends Base
                     'cart_url' => $store->getUrl('checkout/cart'),
                     'items_count' => $cart->getItemsCount(),
                     'cart_id' => $cart->getId(),
+                    'customer_first_name' => $customerFirstName,
                     'discount_code' => $discountCode,
                     'discount_percentage' => $discountPercentage,
                     'discount_expiration' => $discountExpiration,
