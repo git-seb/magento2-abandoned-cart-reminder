@@ -18,42 +18,74 @@
     <tr class="email-intro">
         <td>
             <p class="greeting">
-                {{trans "Dear customer"}}
+                {{trans "Dear Valued Customer"}}
             </p>
-            <p>
-                {{trans "Thank you for visiting our store %store_name." store_name=$store_name |raw}}
-                {{trans 'Did you forget to complete your purchase? You can always reach us for help at <a href="mailto:%store_email">%store_email</a>.' store_email=$store_email |raw}}
+            <p style="font-size: 16px; line-height: 1.5; margin-bottom: 15px;">
+                {{trans "Thank you for visiting %store_name! We noticed you left some fantastic items in your cart." store_name=$store_name |raw}}
+            </p>
+            <p style="font-size: 14px; line-height: 1.5; color: #666;">
+                {{trans "We understand shopping decisions take time. If you have any questions or need assistance, our team is here to help at <a href=\"mailto:%store_email\" style=\"color: #007cba;\">%store_email</a>." store_email=$store_email |raw}}
             </p>
         </td>
     </tr>
-    {{if $has_discount}}
+    {{depend has_discount}}
     <tr class="email-discount">
-        <td style="background-color: #f8f8f8; padding: 20px; border: 2px dashed #007cba; margin: 15px 0;">
-            <h2 style="color: #007cba; text-align: center; margin-top: 0;">
-                {{trans "Special Offer Just For You!"}}
+        <td style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 25px; border: 2px dashed #007cba; margin: 20px 0; border-radius: 8px;">
+            <h2 style="color: #007cba; text-align: center; margin-top: 0; font-size: 22px;">
+                {{trans "🎉 Exclusive Offer Just For You!"}}
             </h2>
-            <p style="text-align: center; font-size: 16px; margin: 10px 0;">
-                {{trans "Complete your purchase and save %discount_percentage% with code:" discount_percentage=$discount_percentage|raw}}
+            <p style="text-align: center; font-size: 16px; margin: 15px 0; color: #333;">
+                {{trans "Complete your purchase now and save <strong>%discount_percentage%</strong> with this special code:" discount_percentage=$discount_percentage|raw}}
             </p>
-            <p style="text-align: center; font-size: 24px; font-weight: bold; color: #007cba; background-color: #ffffff; padding: 10px; border: 1px solid #007cba; letter-spacing: 2px;">
-                {{var discount_code|raw}}
-            </p>
+            <div style="text-align: center; margin: 20px 0;">
+                <p style="display: inline-block; font-size: 24px; font-weight: bold; color: #007cba; background-color: #ffffff; padding: 15px 25px; border: 2px solid #007cba; letter-spacing: 3px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    {{var discount_code|raw}}
+                </p>
+            </div>
             {{if $discount_expiration}}
-            <p style="text-align: center; font-size: 14px; color: #666;">
-                {{trans "Expires: %discount_expiration" discount_expiration=$discount_expiration|raw}}
+            <p style="text-align: center; font-size: 14px; color: #e74c3c; font-weight: bold;">
+                {{trans "⏰ Offer Expires: %discount_expiration" discount_expiration=$discount_expiration|raw}}
             </p>
             {{/if}}
         </td>
     </tr>
-    {{/if}}
+    {{/depend}}
+    <tr class="email-benefits">
+        <td style="padding: 20px 0;">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 18px;">{{trans "Why Complete Your Purchase?"}}</h3>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #28a745;">✓</span>
+                    {{trans "Fast & secure checkout process"}}
+                </li>
+                <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #28a745;">✓</span>
+                    {{trans "Quick delivery to your doorstep"}}
+                </li>
+                <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #28a745;">✓</span>
+                    {{trans "Easy returns & customer satisfaction guarantee"}}
+                </li>
+                <li style="margin-bottom: 10px; padding-left: 25px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #28a745;">✓</span>
+                    {{trans "24/7 customer support when you need it"}}
+                </li>
+            </ul>
+        </td>
+    </tr>
     <tr class="email-summary">
-        <td>
-            <h1>
-                {{trans 'Your cart contains %items_count products.' items_count=$items_count |raw}}
-            </h1>
-            <p>
-                {{trans 'Click on following link to <a href="%cart_url">go back to cart</a>.' cart_url=$cart_url |raw}}
+        <td style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 15px 0;">
+            <h2 style="color: #333; margin-top: 0; font-size: 20px;">
+                {{trans 'Your cart contains %items_count item(s)' items_count=$items_count |raw}}
+            </h2>
+            <p style="margin-bottom: 20px; font-size: 16px;">
+                {{trans "Don't let these amazing products slip away!"}}
             </p>
+            <div style="text-align: center;">
+                <a href="{{var cart_url|raw}}" style="display: inline-block; background-color: #007cba; color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; font-size: 16px; border: 2px solid #007cba; transition: all 0.3s;">
+                    {{trans "Complete My Purchase →"}}
+                </a>
+            </div>
         </td>
     </tr>
     <tr class="email-information">

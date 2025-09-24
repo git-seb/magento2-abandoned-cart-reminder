@@ -150,7 +150,7 @@ class AbandonedHelper extends Base
                     'discount_code' => $discountCode,
                     'discount_percentage' => $discountPercentage,
                     'discount_expiration' => $discountExpiration,
-                    'has_discount' => !empty($discountCode)
+                    'has_discount' => !empty($discountCode) ? '1' : ''
                 ]
             )
             ->setFromByScope(
