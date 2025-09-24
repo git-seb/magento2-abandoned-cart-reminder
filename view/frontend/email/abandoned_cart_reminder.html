@@ -42,11 +42,11 @@
                     {{var discount_code|raw}}
                 </p>
             </div>
-            {{if $discount_expiration}}
+            {{depend discount_expiration}}
             <p style="text-align: center; font-size: 14px; color: #e74c3c; font-weight: bold;">
                 {{trans "⏰ Offer Expires: %discount_expiration" discount_expiration=$discount_expiration|raw}}
             </p>
-            {{/if}}
+            {{/depend}}
         </td>
     </tr>
     {{/depend}}
