@@ -9,7 +9,8 @@
 "var discount_code":"Generated Discount Code",
 "var discount_percentage":"Discount Percentage",
 "var discount_expiration":"Discount Code Expiration Date",
-"var has_discount":"Whether Discount Code is Available"
+"var has_discount":"Whether Discount Code is Available",
+"var has_expiration":"Whether Discount Code has Expiration Date"
 } @-->
 
 {{template config_path="design/email/header_template"}}
@@ -42,7 +43,7 @@
                     {{var discount_code|raw}}
                 </p>
             </div>
-            {{depend discount_expiration}}
+            {{depend has_expiration}}
             <p style="text-align: center; font-size: 14px; color: #e74c3c; font-weight: bold;">
                 {{trans "⏰ Offer Expires: %discount_expiration" discount_expiration=$discount_expiration|raw}}
             </p>
