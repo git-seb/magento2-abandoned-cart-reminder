@@ -110,6 +110,7 @@ The following variables are now available in the abandoned cart email template:
 - `{{var discount_percentage}}` - The discount percentage value
 - `{{var discount_expiration}}` - Formatted expiration date
 - `{{var has_discount}}` - Boolean flag for conditional display
+- `{{var has_expiration}}` - Boolean flag for conditional expiration display
 
 ### Backend Configuration
 
