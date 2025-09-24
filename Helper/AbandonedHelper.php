@@ -129,6 +129,8 @@ class AbandonedHelper extends Base
             // Continue without discount code if generation fails
         }
 
+        $storeGroupName = $store->getGroup()->getName();
+
         $this->inlineTranslation->suspend();
         $transport = $this->transportBuilder
             ->setTemplateIdentifier(
@@ -142,7 +144,7 @@ class AbandonedHelper extends Base
             )
             ->setTemplateVars(
                 [
-                    'store_name' => $store->getName(),
+                    'store_name' => $storeGroupName,
                     'store_email' => $supportEmail,
                     'cart_url' => $store->getUrl('checkout/cart'),
                     'items_count' => $cart->getItemsCount(),
