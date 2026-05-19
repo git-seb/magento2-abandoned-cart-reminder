@@ -26,7 +26,7 @@
                 <field id="template" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Email Template</label>
                     <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
-                    <comment><![CDATA[]]>Select email template. You may edit default template in menu item <strong>CONTENT -> Templates</strong> and choose it here.</comment>
+                    <comment><![CDATA[Select email template. You may edit default template in menu item <strong>CONTENT -> Templates</strong> and choose it here.]]></comment>
                 </field>
             </group>
         </section>
